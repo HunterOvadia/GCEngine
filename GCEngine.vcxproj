@@ -141,9 +141,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GCWin32.cpp" />
+    <ClCompile Include="GCWin32Audio.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GCPlatform.h" />
+    <ClInclude Include="GCWin32.h" />
+    <ClInclude Include="GCWin32Audio.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

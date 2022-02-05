@@ -16,15 +16,27 @@
     <Filter Include="Source Files\Win32">
       <UniqueIdentifier>{7c7956e4-eb1c-45c5-a071-444301c43e78}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Win32">
+      <UniqueIdentifier>{1e862879-13b5-4c0d-b57f-3cc1eec9109d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GCWin32.cpp">
+      <Filter>Source Files\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="GCWin32Audio.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GCPlatform.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GCWin32Audio.h">
+      <Filter>Header Files\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="GCWin32.h">
+      <Filter>Header Files\Win32</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

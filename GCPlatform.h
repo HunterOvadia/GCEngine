@@ -1,4 +1,4 @@
-#if !defined(GC_PLATFORM_H)
+#pragma once
 #include <stdint.h>
 
 #define WINDOW_TITLE "GCEngine"
@@ -23,5 +23,8 @@ typedef uint64_t	uint64;
 #define GIGABYTES(N) (MEGABYTES(N) * 1024)
 #define UNUSED_ARG(X) (X)
 
-#define GC_PLATFORM_H
-#endif
+struct gc_game_platform
+{
+	bool IsRunning;
+};
+static gc_game_platform GlobalPlatform = { 0 };

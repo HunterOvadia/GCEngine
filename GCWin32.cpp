@@ -1,8 +1,6 @@
-#define WIN32_LEAN_AND_MEAN
-#include <Windows.h>
+#include "GCWin32.h"
 #include "GCPlatform.h"
-
-static bool GlobalRunning = false;
+#include "GCWin32Audio.h"
 
 static LRESULT Win32WindowCallback(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 {
@@ -12,7 +10,7 @@ static LRESULT Win32WindowCallback(HWND Window, UINT Message, WPARAM WParam, LPA
 		case WM_DESTROY:
 		case WM_CLOSE:
 		{
-			GlobalRunning = false;
+			GlobalPlatform.IsRunning = false;
 			break;
 		}
 		default:
@@ -31,6 +29,7 @@ int CALLBACK WinMain(HINSTANCE Instance, HINSTANCE PrevInstance, LPSTR CommandLi
 	UNUSED_ARG(PrevInstance);
 
 	WNDCLASSA WindowClass = { 0 };
+
 	WindowClass.lpfnWndProc = Win32WindowCallback;
 	WindowClass.hInstance = Instance;
 	WindowClass.hCursor = LoadCursor(0, IDC_ARROW);
@@ -51,20 +50,33 @@ int CALLBACK WinMain(HINSTANCE Instance, HINSTANCE PrevInstance, LPSTR CommandLi
 		int32 WindowCenterY = ((GetSystemMetrics(SM_CYSCREEN) - WindowHeight) / 2);
 
 		HWND Window = CreateWindowExA(0, WindowClass.lpszClassName, WINDOW_TITLE, WindowStyles, WindowCenterX, WindowCenterY, WindowWidth, WindowHeight, NULL, NULL, Instance, NULL);
-		if (Window)
-		{
-			ShowWindow(Window, ShowCode);
 
-			GlobalRunning = true;
-			while (GlobalRunning)
+		if (SUCCEEDED(CoInitialize(0)))
+		{
+			gc_win32_audio Audio = { 0 };
+			if (!Win32InitWASAPI(&Audio))
 			{
-				MSG Message;
-				while (PeekMessage(&Message, 0, 0, 0, PM_REMOVE))
+				MessageBoxA(0, "Could Not Initialize WASAPI.", "Fatal Error", MB_OK);
+				return 0;
+			}
+
+			if (Window)
+			{
+				ShowWindow(Window, ShowCode);
+
+				GlobalPlatform.IsRunning = true;
+				while (GlobalPlatform.IsRunning)
 				{
-					TranslateMessage(&Message);
-					DispatchMessage(&Message);
+					MSG Message;
+					while (PeekMessage(&Message, 0, 0, 0, PM_REMOVE))
+					{
+						TranslateMessage(&Message);
+						DispatchMessage(&Message);
+					}
 				}
 			}
+
+			Win32ShutdownWASAPI(&Audio);
 		}
 	}
 
