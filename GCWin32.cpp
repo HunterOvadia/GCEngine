@@ -1,6 +1,7 @@
 #include "GCWin32.h"
 #include "GCPlatform.h"
 #include "GCWin32Audio.h"
+#include "GCWin32D3D11.h"
 
 static LRESULT Win32WindowCallback(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 {
@@ -50,13 +51,19 @@ int CALLBACK WinMain(HINSTANCE Instance, HINSTANCE PrevInstance, LPSTR CommandLi
 		int32 WindowCenterY = ((GetSystemMetrics(SM_CYSCREEN) - WindowHeight) / 2);
 
 		HWND Window = CreateWindowExA(0, WindowClass.lpszClassName, WINDOW_TITLE, WindowStyles, WindowCenterX, WindowCenterY, WindowWidth, WindowHeight, NULL, NULL, Instance, NULL);
-
 		if (SUCCEEDED(CoInitialize(0)))
 		{
 			gc_win32_audio Audio = { 0 };
 			if (!Win32InitWASAPI(&Audio))
 			{
 				MessageBoxA(0, "Could Not Initialize WASAPI.", "Fatal Error", MB_OK);
+				return 0;
+			}
+
+			gc_win32_d3d11 D3D11 = { 0 }; 
+			if (!Win32InitD3D11(&D3D11, Window, WindowWidth, WindowHeight))
+			{
+				MessageBoxA(0, "Could Not Initialize D3D11.", "Fatal Error", MB_OK);
 				return 0;
 			}
 
@@ -73,9 +80,15 @@ int CALLBACK WinMain(HINSTANCE Instance, HINSTANCE PrevInstance, LPSTR CommandLi
 						TranslateMessage(&Message);
 						DispatchMessage(&Message);
 					}
+
+					float Color[4] = { 0.09f, 0.09f, 0.1f, 1.0f };
+					D3D11.DeviceContext->ClearRenderTargetView(D3D11.RenderTargetView, Color);
+					D3D11.DeviceContext->OMSetRenderTargets(1, &D3D11.RenderTargetView, 0);
+					D3D11.SwapChain->Present(1, 0);
 				}
 			}
 
+			Win32ShutdownD3D11(&D3D11);
 			Win32ShutdownWASAPI(&Audio);
 		}
 	}

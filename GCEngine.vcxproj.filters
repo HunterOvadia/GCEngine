@@ -27,6 +27,9 @@
     <ClCompile Include="GCWin32Audio.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
+    <ClCompile Include="GCWin32D3D11.cpp">
+      <Filter>Source Files\Win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GCPlatform.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
     <ClInclude Include="GCWin32.h">
+      <Filter>Header Files\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="GCWin32D3D11.h">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
   </ItemGroup>

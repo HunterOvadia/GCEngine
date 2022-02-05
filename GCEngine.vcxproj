@@ -121,6 +121,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>d3d11.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,11 +143,13 @@
   <ItemGroup>
     <ClCompile Include="GCWin32.cpp" />
     <ClCompile Include="GCWin32Audio.cpp" />
+    <ClCompile Include="GCWin32D3D11.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GCPlatform.h" />
     <ClInclude Include="GCWin32.h" />
     <ClInclude Include="GCWin32Audio.h" />
+    <ClInclude Include="GCWin32D3D11.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
