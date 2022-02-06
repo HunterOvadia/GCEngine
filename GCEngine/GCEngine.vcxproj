@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -112,9 +112,9 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>EnableAllWarnings</WarningLevel>
+      <WarningLevel>Level1</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;GC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GCENGINE_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
@@ -141,15 +141,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GCEngine.cpp" />
     <ClCompile Include="GCPlatform.cpp" />
     <ClCompile Include="GCPlatformFIleIOWin32.cpp" />
     <ClCompile Include="GCPlatformInputWin32.cpp" />
     <ClCompile Include="GCPlatformRendererWin32D3D11.cpp" />
     <ClCompile Include="GCPlatformWin32.cpp" />
-    <ClCompile Include="GCWin32Entry.cpp" />
     <ClCompile Include="GCPlatformAudioWin32.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GCEngine.h" />
     <ClInclude Include="GCPlatform.h" />
     <ClInclude Include="GCPlatformAudio.h" />
     <ClInclude Include="GCPlatformFileIO.h" />

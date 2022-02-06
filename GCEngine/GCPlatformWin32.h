@@ -8,7 +8,7 @@
 #define HR_CHECK(Exp) { if(!(SUCCEEDED(Exp))) { MessageBoxA(0, "Fatal Error", "Fatal Error", MB_OK); } }
 
 
-class GCPlatformWin32 : public IGCPlatform
+class GCENGINE_API GCPlatformWin32 : public IGCPlatform
 {
 public:
 	GCPlatformWin32(HINSTANCE InInstance);

@@ -1,6 +1,6 @@
 #include "GCPlatform.h"
 
-void IGCPlatform::Run()
+void IGCPlatform::PreUpdate()
 {
 	ProcessMessages();
 
@@ -8,7 +8,10 @@ void IGCPlatform::Run()
 	{
 		Input->ProcessMouseInput();
 	}
+}
 
+void IGCPlatform::PostUpdate()
+{
 	if (Renderer)
 	{
 		Renderer->Update();

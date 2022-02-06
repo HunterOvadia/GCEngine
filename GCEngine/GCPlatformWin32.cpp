@@ -5,12 +5,13 @@
 #include "GCPlatformFileIOWin32.h"
 
 bool IGCPlatform::_IsRunning = false;
+IGCPlatform* IGCPlatform::GlobalPlatform = nullptr;
 
 GCPlatformWin32::GCPlatformWin32(HINSTANCE InInstance) 
 	: Instance(InInstance)
 	, WindowHandle(nullptr)
 {
-
+	IGCPlatform::SetPlatform(this);
 }
 
 bool GCPlatformWin32::Initialize()
@@ -23,7 +24,6 @@ bool GCPlatformWin32::Initialize()
 	{
 		CanRun &= Renderer->Initialize(WindowWidth, WindowHeight);
 	}
-
 
 	Audio = new GCPlatformAudioWin32();
 	if (Audio)
@@ -89,9 +89,9 @@ bool GCPlatformWin32::MakeWindow()
 			ShowWindow(WindowHandle, 1);
 			return true;
 		}
-
-		return false;
 	}
+
+	return false;
 }
 
 LRESULT GCPlatformWin32::Win32WindowCallback(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
