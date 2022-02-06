@@ -39,6 +39,9 @@
     <ClCompile Include="GCPlatform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GCPlatformFIleIOWin32.cpp">
+      <Filter>Source Files\Win32</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GCPlatform.h">
@@ -63,6 +66,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GCPlatformInputWin32.h">
+      <Filter>Header Files\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="GCPlatformFileIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GCPlatformFileIOWin32.h">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
   </ItemGroup>

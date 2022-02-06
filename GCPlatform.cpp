@@ -33,7 +33,6 @@ void IGCPlatform::Shutdown()
 
 	if (Input)
 	{
-		Input->Shutdown();
 		delete Input;
 		Input = nullptr;
 	}
