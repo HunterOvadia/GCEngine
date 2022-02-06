@@ -21,13 +21,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GCWin32.cpp">
+    <ClCompile Include="GCWin32Entry.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="GCWin32Audio.cpp">
+    <ClCompile Include="GCPlatformAudioWin32.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="GCWin32D3D11.cpp">
+    <ClCompile Include="GCPlatformWin32.cpp">
+      <Filter>Source Files\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="GCPlatformRendererWin32D3D11.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,14 +38,20 @@
     <ClInclude Include="GCPlatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GCWin32Audio.h">
+    <ClInclude Include="GCPlatformAudioWin32.h">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="GCWin32.h">
+    <ClInclude Include="GCPlatformRendererWin32D3D11.h">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="GCWin32D3D11.h">
+    <ClInclude Include="GCPlatformWin32.h">
       <Filter>Header Files\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="GCPlatformAudio.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GCPlatformRenderer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

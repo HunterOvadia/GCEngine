@@ -114,7 +114,7 @@
     <ClCompile>
       <WarningLevel>EnableAllWarnings</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;GC_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
@@ -141,15 +141,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GCWin32.cpp" />
-    <ClCompile Include="GCWin32Audio.cpp" />
-    <ClCompile Include="GCWin32D3D11.cpp" />
+    <ClCompile Include="GCPlatformRendererWin32D3D11.cpp" />
+    <ClCompile Include="GCPlatformWin32.cpp" />
+    <ClCompile Include="GCWin32Entry.cpp" />
+    <ClCompile Include="GCPlatformAudioWin32.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GCPlatform.h" />
-    <ClInclude Include="GCWin32.h" />
-    <ClInclude Include="GCWin32Audio.h" />
-    <ClInclude Include="GCWin32D3D11.h" />
+    <ClInclude Include="GCPlatformAudio.h" />
+    <ClInclude Include="GCPlatformRenderer.h" />
+    <ClInclude Include="GCPlatformWin32.h" />
+    <ClInclude Include="GCPlatformAudioWin32.h" />
+    <ClInclude Include="GCPlatformRendererWin32D3D11.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
