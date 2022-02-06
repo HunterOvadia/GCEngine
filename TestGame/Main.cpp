@@ -1,4 +1,4 @@
-#include "GCPlatformWin32.h"
+#include "Platform/Win32/GCPlatformWin32.h"
 #include "Game.h"
 
 int CALLBACK WinMain(HINSTANCE Instance, HINSTANCE PrevInstance, LPSTR CommandLine, int ShowCode)

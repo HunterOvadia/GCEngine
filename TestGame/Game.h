@@ -17,7 +17,6 @@ public:
 
 	void Shutdown() 
 	{
-		MyPlatform = nullptr;
 	}
 
 private:
