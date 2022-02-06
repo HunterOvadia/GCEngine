@@ -12,10 +12,8 @@ class GCPlatformWin32 : public IGCPlatform
 {
 public:
 	GCPlatformWin32(HINSTANCE InInstance);
-
 	virtual bool Initialize() override;
-	virtual void Run() override;
-	virtual void Shutdown() override;
+	virtual void ProcessMessages();
 
 private:
 	bool MakeWindow();

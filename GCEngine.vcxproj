@@ -141,6 +141,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GCPlatform.cpp" />
+    <ClCompile Include="GCPlatformInputWin32.cpp" />
     <ClCompile Include="GCPlatformRendererWin32D3D11.cpp" />
     <ClCompile Include="GCPlatformWin32.cpp" />
     <ClCompile Include="GCWin32Entry.cpp" />
@@ -149,6 +151,8 @@
   <ItemGroup>
     <ClInclude Include="GCPlatform.h" />
     <ClInclude Include="GCPlatformAudio.h" />
+    <ClInclude Include="GCPlatformInput.h" />
+    <ClInclude Include="GCPlatformInputWin32.h" />
     <ClInclude Include="GCPlatformRenderer.h" />
     <ClInclude Include="GCPlatformWin32.h" />
     <ClInclude Include="GCPlatformAudioWin32.h" />

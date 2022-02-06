@@ -1,6 +1,8 @@
 #include "GCPlatformWin32.h"
 #include "GCPlatformAudioWin32.h"
 #include "GCPlatformRendererWin32D3D11.h"
+#include "GCPlatformInputWin32.h"
+#include "GCPlatformFileIOWin32.h"
 
 bool IGCPlatform::_IsRunning = false;
 
@@ -8,6 +10,7 @@ GCPlatformWin32::GCPlatformWin32(HINSTANCE InInstance)
 	: Instance(InInstance)
 	, WindowHandle(nullptr)
 {
+
 }
 
 bool GCPlatformWin32::Initialize()
@@ -15,18 +18,21 @@ bool GCPlatformWin32::Initialize()
 	bool CanRun = true;
 
 	CanRun &= MakeWindow();
-
-	Audio = new GCPlatformAudioWin32();
-	if (Audio)
-	{
-		CanRun &= Audio->Initialize();
-	}
-
 	Renderer = new GCPlatformRendererWin32D3D11(WindowHandle);
 	if (Renderer)
 	{
 		CanRun &= Renderer->Initialize(WindowWidth, WindowHeight);
 	}
+
+
+	Audio = new GCPlatformAudioWin32();
+	if (Audio)
+	{
+		Audio->Initialize();
+	}
+
+	Input = new GCPlatformInputWin32(WindowHandle);
+	FileIO = new GCPlatformFileIOWin32();
 
 	if (CanRun)
 	{
@@ -36,33 +42,23 @@ bool GCPlatformWin32::Initialize()
 	return _IsRunning;
 }
 
-void GCPlatformWin32::Run()
+void GCPlatformWin32::ProcessMessages()
 {
 	MSG Message;
 	while (PeekMessage(&Message, 0, 0, 0, PM_REMOVE))
 	{
-		TranslateMessage(&Message);
-		DispatchMessage(&Message);
-	}
-
-	if (Renderer)
-	{
-		Renderer->Update();
-	}
-}
-
-void GCPlatformWin32::Shutdown()
-{
-	if (Audio)
-	{
-		Audio->Shutdown();
-	}
-
-	if (Renderer)
-	{
-		Renderer->Shutdown();
+		switch (Message.message)
+		{
+			default:
+			{
+				TranslateMessage(&Message);
+				DispatchMessage(&Message);
+				break;
+			}
+		}
 	}
 }
+
 
 bool GCPlatformWin32::MakeWindow()
 {
