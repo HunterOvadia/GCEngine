@@ -12,11 +12,16 @@ class GCENGINE_API GCPlatformWin32 : public IGCPlatform
 {
 public:
 	GCPlatformWin32(HINSTANCE InInstance);
-	virtual bool Initialize() override;
 	virtual void ProcessMessages();
 
 private:
-	bool MakeWindow();
+	virtual IGCPlatformRenderer* AssignRenderer() override;
+	virtual IGCPlatformInput* AssignInput() override;
+	virtual IGCPlatformFileIO* AssignFileIO() override;
+	virtual IGCPlatformAudio* AssignAudio() override;
+	virtual bool InternalCreateWindow(const char* ProgramName, int Width, int Height) override;
+
+private:
 	static LRESULT Win32WindowCallback(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam);
 
 private:

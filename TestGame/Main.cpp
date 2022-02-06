@@ -4,10 +4,10 @@
 int CALLBACK WinMain(HINSTANCE Instance, HINSTANCE PrevInstance, LPSTR CommandLine, int ShowCode)
 {
 	GCPlatformWin32 Win32Platform(Instance);
-	Win32Platform.Initialize();
+	Win32Platform.Initialize("MyGame", 1280, 720);
 	
-	Game MyGame;
-	MyGame.Init();
+	Game MyGame = {};
+	MyGame.Init(&Win32Platform);
 
 	while (IGCPlatform::IsRunning())
 	{

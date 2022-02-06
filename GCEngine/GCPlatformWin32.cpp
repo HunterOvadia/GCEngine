@@ -5,41 +5,64 @@
 #include "GCPlatformFileIOWin32.h"
 
 bool IGCPlatform::_IsRunning = false;
-IGCPlatform* IGCPlatform::GlobalPlatform = nullptr;
-
 GCPlatformWin32::GCPlatformWin32(HINSTANCE InInstance) 
 	: Instance(InInstance)
 	, WindowHandle(nullptr)
 {
-	IGCPlatform::SetPlatform(this);
 }
 
-bool GCPlatformWin32::Initialize()
+IGCPlatformRenderer* GCPlatformWin32::AssignRenderer()
 {
-	bool CanRun = true;
+	return new GCPlatformRendererWin32D3D11(WindowHandle);
+}
 
-	CanRun &= MakeWindow();
-	Renderer = new GCPlatformRendererWin32D3D11(WindowHandle);
-	if (Renderer)
+IGCPlatformInput* GCPlatformWin32::AssignInput()
+{
+	return new GCPlatformInputWin32(WindowHandle);
+}
+
+IGCPlatformFileIO* GCPlatformWin32::AssignFileIO()
+{
+	return new GCPlatformFileIOWin32();
+}
+
+IGCPlatformAudio* GCPlatformWin32::AssignAudio()
+{
+	return new GCPlatformAudioWin32();
+}
+
+bool GCPlatformWin32::InternalCreateWindow(const char* ProgramName, int Width, int Height)
+{
+	WNDCLASSA WindowClass = { 0 };
+
+	WindowClass.lpfnWndProc = Win32WindowCallback;
+	WindowClass.hInstance = Instance;
+	WindowClass.hCursor = LoadCursor(0, IDC_ARROW);
+	WindowClass.hbrBackground = (HBRUSH)(COLOR_BACKGROUND + 1);
+	WindowClass.lpszClassName = "GCWindowClass";
+
+	if (RegisterClassA(&WindowClass))
 	{
-		CanRun &= Renderer->Initialize(WindowWidth, WindowHeight);
+		DWORD WindowStyles = WS_OVERLAPPEDWINDOW;
+		RECT WindowRect = { 0 };
+		WindowRect.right = Width;
+		WindowRect.bottom = Height;
+		AdjustWindowRect(&WindowRect, WindowStyles, 0);
+
+		WindowWidth = (WindowRect.right - WindowRect.left);
+		WindowHeight = (WindowRect.bottom - WindowRect.top);
+		int WindowCenterX = ((GetSystemMetrics(SM_CXSCREEN) - WindowWidth) / 2);
+		int WindowCenterY = ((GetSystemMetrics(SM_CYSCREEN) - WindowHeight) / 2);
+
+		WindowHandle = CreateWindowExA(0, WindowClass.lpszClassName, ProgramName, WindowStyles, WindowCenterX, WindowCenterY, WindowWidth, WindowHeight, NULL, NULL, Instance, NULL);
+		if (WindowHandle)
+		{
+			ShowWindow(WindowHandle, 1);
+			return true;
+		}
 	}
 
-	Audio = new GCPlatformAudioWin32();
-	if (Audio)
-	{
-		Audio->Initialize();
-	}
-
-	Input = new GCPlatformInputWin32(WindowHandle);
-	FileIO = new GCPlatformFileIOWin32();
-
-	if (CanRun)
-	{
-		_IsRunning = true;
-	}
-
-	return _IsRunning;
+	return false;
 }
 
 void GCPlatformWin32::ProcessMessages()
@@ -60,39 +83,6 @@ void GCPlatformWin32::ProcessMessages()
 }
 
 
-bool GCPlatformWin32::MakeWindow()
-{
-	WNDCLASSA WindowClass = { 0 };
-
-	WindowClass.lpfnWndProc = Win32WindowCallback;
-	WindowClass.hInstance = Instance;
-	WindowClass.hCursor = LoadCursor(0, IDC_ARROW);
-	WindowClass.hbrBackground = (HBRUSH)(COLOR_BACKGROUND + 1);
-	WindowClass.lpszClassName = "GCWindowClass";
-
-	if (RegisterClassA(&WindowClass))
-	{
-		DWORD WindowStyles = WS_OVERLAPPEDWINDOW;
-		RECT WindowRect = { 0 };
-		WindowRect.right = WINDOW_DEFAULT_WIDTH;
-		WindowRect.bottom = WINDOW_DEFAULT_HEIGHT;
-		AdjustWindowRect(&WindowRect, WindowStyles, 0);
-
-		WindowWidth = (WindowRect.right - WindowRect.left);
-		WindowHeight = (WindowRect.bottom - WindowRect.top);
-		int WindowCenterX = ((GetSystemMetrics(SM_CXSCREEN) - WindowWidth) / 2);
-		int WindowCenterY = ((GetSystemMetrics(SM_CYSCREEN) - WindowHeight) / 2);
-
-		WindowHandle = CreateWindowExA(0, WindowClass.lpszClassName, WINDOW_TITLE, WindowStyles, WindowCenterX, WindowCenterY, WindowWidth, WindowHeight, NULL, NULL, Instance, NULL);
-		if (WindowHandle)
-		{
-			ShowWindow(WindowHandle, 1);
-			return true;
-		}
-	}
-
-	return false;
-}
 
 LRESULT GCPlatformWin32::Win32WindowCallback(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
 {

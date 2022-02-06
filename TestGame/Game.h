@@ -5,14 +5,14 @@
 class Game
 {
 public:
-	void Init() 
+	void Init(IGCPlatform* InPlatforn) 
 	{
-		MyPlatform = IGCPlatform::Get();
+		MyPlatform = InPlatforn;
 	}
 
 	void Update() 
 	{
-		
+				
 	}
 
 	void Shutdown() 

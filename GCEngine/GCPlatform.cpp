@@ -18,6 +18,20 @@ void IGCPlatform::PostUpdate()
 	}
 }
 
+bool IGCPlatform::Initialize(const char* ProgramName, int Width, int Height)
+{
+	bool IsInitializeSuccess = true;
+
+	IsInitializeSuccess &= InternalCreateWindow(ProgramName, Width, Height);
+	IsInitializeSuccess &= InternalCreateRenderer();
+	IsInitializeSuccess &= InternalCreateAudio();
+	IsInitializeSuccess &= InternalCreateInput();
+	IsInitializeSuccess &= InternalCreateFileIO();
+
+	_IsRunning = IsInitializeSuccess;
+	return IsInitializeSuccess;
+}
+
 void IGCPlatform::Shutdown()
 {
 	if (Audio)
@@ -39,4 +53,54 @@ void IGCPlatform::Shutdown()
 		delete Input;
 		Input = nullptr;
 	}
+
+	if (FileIO)
+	{
+		delete FileIO;
+		FileIO = nullptr;
+	}
+}
+
+bool IGCPlatform::InternalCreateRenderer()
+{
+	Renderer = AssignRenderer();
+	if (Renderer)
+	{
+		return Renderer->Initialize(WindowWidth, WindowHeight);
+	}
+
+	return false;
+}
+
+bool IGCPlatform::InternalCreateAudio()
+{
+	Audio = AssignAudio();
+	if (Audio)
+	{
+		return Audio->Initialize();
+	}
+
+	return false;
+}
+
+bool IGCPlatform::InternalCreateInput()
+{
+	Input = AssignInput();
+	if (Input)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool IGCPlatform::InternalCreateFileIO()
+{
+	FileIO = AssignFileIO();
+	if (FileIO)
+	{
+		return true;
+	}
+
+	return false;
 }

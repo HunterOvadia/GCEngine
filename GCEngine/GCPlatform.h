@@ -6,21 +6,18 @@
 #include "GCPlatformFileIO.h"
 #include "GCEngine.h"
 
-#define WINDOW_TITLE "GCEngine"
-#define WINDOW_DEFAULT_WIDTH 1280
-#define WINDOW_DEFAULT_HEIGHT 720
 #define ARRAY_SIZE(Array) ((sizeof(Array)/sizeof(Array[0])))
 
 class GCENGINE_API IGCPlatform
 {
 public:
-	virtual bool Initialize() = 0;
+	virtual bool Initialize(const char* ProgramName, int Width, int Height);
 	virtual void ProcessMessages() = 0;
+	virtual void Shutdown();
 
+	// TODO(HO): Can we just make these private?
 	virtual void PreUpdate();
 	virtual void PostUpdate();
-
-	virtual void Shutdown();
 
 	IGCPlatformAudio* GetAudio() { return Audio; }
 	IGCPlatformRenderer* GetRenderer() { return Renderer; }
@@ -28,13 +25,18 @@ public:
 	IGCPlatformFileIO* GetFileIO() { return FileIO; }
 
 	static bool IsRunning() { return _IsRunning; }
-	static IGCPlatform* Get() { return GlobalPlatform; }
-
-protected:
-	static void SetPlatform(IGCPlatform* InPlatform) { GlobalPlatform = InPlatform; }
 
 private:
-	static IGCPlatform* GlobalPlatform;
+	virtual bool InternalCreateWindow(const char* ProgramName, int Width, int Height) = 0;
+	virtual IGCPlatformRenderer* AssignRenderer() = 0;
+	virtual IGCPlatformInput* AssignInput() = 0;
+	virtual IGCPlatformFileIO* AssignFileIO() = 0;
+	virtual IGCPlatformAudio* AssignAudio() = 0;
+
+	bool InternalCreateRenderer();
+	bool InternalCreateAudio();
+	bool InternalCreateInput();
+	bool InternalCreateFileIO();
 
 protected:
 	IGCPlatformAudio* Audio;
