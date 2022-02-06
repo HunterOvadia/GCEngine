@@ -1,23 +1,23 @@
 #pragma once
-class Game
+#include "App/IGCApp.h"
+
+class Game : public IGCApp
 {
 public:
-	Game() : MyPlatform(nullptr) {}
-	
-	void Init(IGCPlatform* InPlatform) 
+	Game() : IGCApp("MyGame", 1280, 720) {}
+
+	virtual bool Initialize(IGCPlatform* Platform) override
 	{
-		MyPlatform = InPlatform;
+		return true;
 	}
 
-	void Update() 
+	virtual void Update() override
 	{
-				
+		
 	}
 
-	void Shutdown() 
+	virtual void Shutdown() override
 	{
-	}
 
-private:
-	IGCPlatform* MyPlatform;
+	}
 };

@@ -3,20 +3,18 @@
 
 int CALLBACK WinMain(HINSTANCE Instance, HINSTANCE PrevInstance, LPSTR CommandLine, int ShowCode)
 {
+	Game MyGame;
 	GCPlatformWin32 Win32Platform(Instance);
-	Win32Platform.Initialize("MyGame", 1280, 720);
-	
-	Game MyGame = {};
-	MyGame.Init(&Win32Platform);
-
-	while (IGCPlatform::IsRunning())
 	{
-		Win32Platform.PreUpdate();
-		MyGame.Update();
-		Win32Platform.PostUpdate();
-	}
+		Win32Platform.Initialize(&MyGame);
 
-	MyGame.Shutdown();
-	Win32Platform.Shutdown();
+		while (IGCPlatform::IsRunning())
+		{
+			Win32Platform.Update(&MyGame);
+		}
+
+		Win32Platform.Shutdown(&MyGame);
+	}
 	return 0;
+
 }

@@ -36,6 +36,9 @@
     <ClCompile Include="Platform\Win32\GCPlatformWin32.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="App\IGCApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GCEngine.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Platform\Win32\GCPlatformWin32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="App\IGCApp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,18 +8,18 @@
 
 #define ARRAY_SIZE(Array) ((sizeof(Array)/sizeof(Array[0])))
 
+class IGCApp;
+
 class GCENGINE_API IGCPlatform
 {
 public:
 	IGCPlatform();
 	virtual ~IGCPlatform() = default;
-	virtual bool Initialize(const char* ProgramName, int Width, int Height);
 	virtual void ProcessMessages() = 0;
-	virtual void Shutdown();
 
-	// TODO(HO): Can we just make these private?
-	virtual void PreUpdate();
-	virtual void PostUpdate();
+	virtual bool Initialize(IGCApp* App);
+	virtual void Update(IGCApp* App);
+	virtual void Shutdown(IGCApp* App);
 
 	IGCPlatformAudio* GetAudio() const { return Audio; }
 	IGCPlatformRenderer* GetRenderer() const { return Renderer; }
@@ -39,6 +39,9 @@ private:
 	bool InternalCreateAudio();
 	bool InternalCreateInput();
 	bool InternalCreateFileIO();
+
+	virtual void PreUpdate();
+	virtual void PostUpdate();
 
 protected:
 	IGCPlatformAudio* Audio;

@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="App\IGCApp.cpp" />
     <ClCompile Include="GCEngine.cpp" />
     <ClCompile Include="Platform\GCPlatform.cpp" />
     <ClCompile Include="Platform\Win32\GCPlatformAudioWin32.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="Platform\Win32\GCPlatformWin32.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="App\IGCApp.h" />
     <ClInclude Include="GCEngine.h" />
     <ClInclude Include="Platform\GCPlatform.h" />
     <ClInclude Include="Platform\GCPlatformAudio.h" />

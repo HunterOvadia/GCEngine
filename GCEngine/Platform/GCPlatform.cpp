@@ -1,4 +1,38 @@
 #include "GCPlatform.h"
+#include "../App/IGCApp.h"
+
+IGCPlatform::IGCPlatform()
+	: Audio(nullptr)
+	, Renderer(nullptr)
+	, Input(nullptr)
+	, FileIO(nullptr)
+	, WindowWidth(0)
+    , WindowHeight(0)
+{
+}
+
+bool IGCPlatform::Initialize(IGCApp* App)
+{
+	bool IsInitializeSuccess = true;
+
+	if (App)
+	{
+		IsInitializeSuccess &= InternalCreateWindow(App->ProgramName, App->Width, App->Height);
+	}
+
+	IsInitializeSuccess &= InternalCreateRenderer();
+	IsInitializeSuccess &= InternalCreateAudio();
+	IsInitializeSuccess &= InternalCreateInput();
+	IsInitializeSuccess &= InternalCreateFileIO();
+
+	if (App)
+	{
+		IsInitializeSuccess &= App->Initialize(this);
+	}
+
+	_IsRunning = IsInitializeSuccess;
+	return IsInitializeSuccess;
+}
 
 void IGCPlatform::PreUpdate()
 {
@@ -18,32 +52,26 @@ void IGCPlatform::PostUpdate()
 	}
 }
 
-IGCPlatform::IGCPlatform()
-	: Audio(nullptr)
-	, Renderer(nullptr)
-	, Input(nullptr)
-	, FileIO(nullptr)
-	, WindowWidth(0)
-    , WindowHeight(0)
+void IGCPlatform::Update(IGCApp* App)
 {
+	PreUpdate();
+
+	if (App)
+	{
+		App->Update();
+	}
+
+	PostUpdate();
 }
 
-bool IGCPlatform::Initialize(const char* ProgramName, const int Width, const int Height)
+
+void IGCPlatform::Shutdown(IGCApp* App)
 {
-	bool IsInitializeSuccess = true;
+	if (App)
+	{
+		App->Shutdown();
+	}
 
-	IsInitializeSuccess &= InternalCreateWindow(ProgramName, Width, Height);
-	IsInitializeSuccess &= InternalCreateRenderer();
-	IsInitializeSuccess &= InternalCreateAudio();
-	IsInitializeSuccess &= InternalCreateInput();
-	IsInitializeSuccess &= InternalCreateFileIO();
-
-	_IsRunning = IsInitializeSuccess;
-	return IsInitializeSuccess;
-}
-
-void IGCPlatform::Shutdown()
-{
 	if (Audio)
 	{
 		Audio->Shutdown();
@@ -70,6 +98,7 @@ void IGCPlatform::Shutdown()
 		FileIO = nullptr;
 	}
 }
+
 
 bool IGCPlatform::InternalCreateRenderer()
 {
