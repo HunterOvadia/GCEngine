@@ -1,5 +1,6 @@
 #include "GCPlatform.h"
 #include "../App/IGCApp.h"
+#include "../Math/Vector2.h"
 
 IGCPlatform::IGCPlatform()
 	: Audio(nullptr)
@@ -17,7 +18,7 @@ bool IGCPlatform::Initialize(IGCApp* App)
 
 	if (App)
 	{
-		IsInitializeSuccess &= InternalCreateWindow(App->ProgramName, App->Width, App->Height);
+		IsInitializeSuccess &= InternalCreateWindow(App->ProgramName, App->WindowSize.X, App->WindowSize.Y);
 	}
 
 	IsInitializeSuccess &= InternalCreateRenderer();

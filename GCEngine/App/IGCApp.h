@@ -1,5 +1,6 @@
 #pragma once
 #include "../Platform/GCPlatform.h"
+#include "../Math/Vector2.h"
 
 class GCENGINE_API IGCApp
 {
@@ -17,6 +18,5 @@ public:
 protected:
 	IGCPlatform* Platform;
 	const char* ProgramName;
-	int Width;
-	int Height;
+	Vector2 WindowSize;
 };

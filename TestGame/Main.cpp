@@ -3,7 +3,7 @@
 
 int CALLBACK WinMain(HINSTANCE Instance, HINSTANCE PrevInstance, LPSTR CommandLine, int ShowCode)
 {
-	Game MyGame;
+	Game MyGame("MyGame", 1280, 720);
 	GCPlatformWin32 Win32Platform(Instance);
 	{
 		Win32Platform.Initialize(&MyGame);

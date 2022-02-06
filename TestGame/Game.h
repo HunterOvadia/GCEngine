@@ -4,7 +4,7 @@
 class Game : public IGCApp
 {
 public:
-	Game() : IGCApp("MyGame", 1280, 720) {}
+	using IGCApp::IGCApp;
 
 	virtual bool Initialize(IGCPlatform* Platform) override
 	{
