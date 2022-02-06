@@ -21,9 +21,9 @@ bool GCPlatformRendererWin32D3D11::Initialize(const int Width, const int Height)
 		D3D_FEATURE_LEVEL_10_0
 	};
 
-	constexpr int Flags = 0;
+	int Flags = 0;
 #if GC_DEBUG
-	constexpr int Flags = D3D11_CREATE_DEVICE_DEBUG;
+	Flags = D3D11_CREATE_DEVICE_DEBUG;
 #endif
 	
 	HR_CHECK(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, Flags, FeatureLevels, ARRAY_SIZE(FeatureLevels), D3D11_SDK_VERSION, &Device, nullptr, &DeviceContext));

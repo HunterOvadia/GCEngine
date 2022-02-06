@@ -81,8 +81,6 @@ void GCPlatformWin32::ProcessMessages()
 	}
 }
 
-
-
 LRESULT GCPlatformWin32::Win32WindowCallback(const HWND Window, const UINT Message, const WPARAM WParam, const LPARAM LParam)
 {
 	LRESULT Result = 0;
