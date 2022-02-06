@@ -1,13 +1,12 @@
 #pragma once
-#include <stdio.h>
-#include <iostream>
-
 class Game
 {
 public:
-	void Init(IGCPlatform* InPlatforn) 
+	Game() : MyPlatform(nullptr) {}
+	
+	void Init(IGCPlatform* InPlatform) 
 	{
-		MyPlatform = InPlatforn;
+		MyPlatform = InPlatform;
 	}
 
 	void Update() 

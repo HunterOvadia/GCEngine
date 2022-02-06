@@ -1,13 +1,14 @@
 #pragma once
-#include "GCPlatformAudio.h"
+#include "../GCPlatformAudio.h"
 #include <mmdeviceapi.h>
 #include <Audioclient.h>
 
-class GCPlatformAudioWin32 : public IGCPlatformAudio
+class GCPlatformAudioWin32 final : public IGCPlatformAudio
 {
 public:
-	virtual bool Initialize() override;
-	virtual void Shutdown() override;
+	GCPlatformAudioWin32();
+	bool Initialize() override;
+	void Shutdown() override;
 
 private:
 	UINT32 BufferSize;

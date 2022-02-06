@@ -1,6 +1,6 @@
 #include "GCPlatformInputWin32.h"
 
-GCPlatformInputWin32::GCPlatformInputWin32(HWND InWindowHandle)
+GCPlatformInputWin32::GCPlatformInputWin32(const HWND InWindowHandle)
 	: WindowHandle(InWindowHandle)
 {
 }

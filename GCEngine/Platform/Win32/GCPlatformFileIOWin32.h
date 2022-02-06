@@ -1,9 +1,9 @@
 #pragma once
-#include "GCPlatformFileIO.h"
+#include "../GCPlatformFileIO.h"
 
-class GCPlatformFileIOWin32 : public IGCPlatformFileIO
+class GCPlatformFileIOWin32 final : public IGCPlatformFileIO
 {
 public:
-	virtual IOFileResult ReadFile(const char* Filename) override;
-	virtual bool WriteFile(const char* Filename, int Size, void* Content) override;
+	IOFileResult ReadFile(const char* Filename) override;
+	bool WriteFile(const char* Filename, int Size, void* Content) override;
 };

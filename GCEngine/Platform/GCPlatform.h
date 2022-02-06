@@ -4,13 +4,15 @@
 #include "GCPlatformRenderer.h"
 #include "GCPlatformInput.h"
 #include "GCPlatformFileIO.h"
-#include "GCEngine.h"
+#include "../GCEngine.h"
 
 #define ARRAY_SIZE(Array) ((sizeof(Array)/sizeof(Array[0])))
 
 class GCENGINE_API IGCPlatform
 {
 public:
+	IGCPlatform();
+	virtual ~IGCPlatform() = default;
 	virtual bool Initialize(const char* ProgramName, int Width, int Height);
 	virtual void ProcessMessages() = 0;
 	virtual void Shutdown();
@@ -19,10 +21,10 @@ public:
 	virtual void PreUpdate();
 	virtual void PostUpdate();
 
-	IGCPlatformAudio* GetAudio() { return Audio; }
-	IGCPlatformRenderer* GetRenderer() { return Renderer; }
-	IGCPlatformInput* GetInput() { return Input;  }
-	IGCPlatformFileIO* GetFileIO() { return FileIO; }
+	IGCPlatformAudio* GetAudio() const { return Audio; }
+	IGCPlatformRenderer* GetRenderer() const { return Renderer; }
+	IGCPlatformInput* GetInput() const { return Input;  }
+	IGCPlatformFileIO* GetFileIO() const { return FileIO; }
 
 	static bool IsRunning() { return _IsRunning; }
 

@@ -18,7 +18,17 @@ void IGCPlatform::PostUpdate()
 	}
 }
 
-bool IGCPlatform::Initialize(const char* ProgramName, int Width, int Height)
+IGCPlatform::IGCPlatform()
+	: Audio(nullptr)
+	, Renderer(nullptr)
+	, Input(nullptr)
+	, FileIO(nullptr)
+	, WindowWidth(0)
+    , WindowHeight(0)
+{
+}
+
+bool IGCPlatform::Initialize(const char* ProgramName, const int Width, const int Height)
 {
 	bool IsInitializeSuccess = true;
 

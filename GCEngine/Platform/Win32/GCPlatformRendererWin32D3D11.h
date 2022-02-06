@@ -1,15 +1,15 @@
 #pragma once
-#include "GCPlatformRenderer.h"
+#include "../GCPlatformRenderer.h"
 #include <d3d11.h>
 #include <dxgi1_2.h>
 
-class GCPlatformRendererWin32D3D11 : public IGCPlatformRenderer
+class GCPlatformRendererWin32D3D11 final : public IGCPlatformRenderer
 {
 public:
-	GCPlatformRendererWin32D3D11(HWND InWindowHandle);
-	virtual bool Initialize(int Width, int Height) override;
-	virtual void Update() override;
-	virtual void Shutdown() override;
+	explicit GCPlatformRendererWin32D3D11(HWND InWindowHandle);
+	bool Initialize(int Width, int Height) override;
+	void Update() override;
+	void Shutdown() override;
 
 private:
 	HWND WindowHandle;

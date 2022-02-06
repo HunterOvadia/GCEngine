@@ -5,8 +5,9 @@ class IGCPlatformInput
 	friend class IGCPlatform;
 
 public:
-	int GetMouseX() { return MouseX; }
-	int GetMouseY() { return MouseY; }
+	virtual ~IGCPlatformInput() = default;
+	int GetMouseX() const { return MouseX; }
+	int GetMouseY() const { return MouseY; }
 
 private:
 	virtual void ProcessMouseInput() = 0;

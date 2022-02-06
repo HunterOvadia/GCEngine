@@ -44,6 +44,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -142,25 +143,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GCEngine.cpp" />
-    <ClCompile Include="GCPlatform.cpp" />
-    <ClCompile Include="GCPlatformFIleIOWin32.cpp" />
-    <ClCompile Include="GCPlatformInputWin32.cpp" />
-    <ClCompile Include="GCPlatformRendererWin32D3D11.cpp" />
-    <ClCompile Include="GCPlatformWin32.cpp" />
-    <ClCompile Include="GCPlatformAudioWin32.cpp" />
+    <ClCompile Include="Platform\GCPlatform.cpp" />
+    <ClCompile Include="Platform\Win32\GCPlatformAudioWin32.cpp" />
+    <ClCompile Include="Platform\Win32\GCPlatformFIleIOWin32.cpp" />
+    <ClCompile Include="Platform\Win32\GCPlatformInputWin32.cpp" />
+    <ClCompile Include="Platform\Win32\GCPlatformRendererWin32D3D11.cpp" />
+    <ClCompile Include="Platform\Win32\GCPlatformWin32.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GCEngine.h" />
-    <ClInclude Include="GCPlatform.h" />
-    <ClInclude Include="GCPlatformAudio.h" />
-    <ClInclude Include="GCPlatformFileIO.h" />
-    <ClInclude Include="GCPlatformFileIOWin32.h" />
-    <ClInclude Include="GCPlatformInput.h" />
-    <ClInclude Include="GCPlatformInputWin32.h" />
-    <ClInclude Include="GCPlatformRenderer.h" />
-    <ClInclude Include="GCPlatformWin32.h" />
-    <ClInclude Include="GCPlatformAudioWin32.h" />
-    <ClInclude Include="GCPlatformRendererWin32D3D11.h" />
+    <ClInclude Include="Platform\GCPlatform.h" />
+    <ClInclude Include="Platform\GCPlatformAudio.h" />
+    <ClInclude Include="Platform\GCPlatformFileIO.h" />
+    <ClInclude Include="Platform\GCPlatformInput.h" />
+    <ClInclude Include="Platform\GCPlatformRenderer.h" />
+    <ClInclude Include="Platform\Win32\GCPlatformAudioWin32.h" />
+    <ClInclude Include="Platform\Win32\GCPlatformFileIOWin32.h" />
+    <ClInclude Include="Platform\Win32\GCPlatformInputWin32.h" />
+    <ClInclude Include="Platform\Win32\GCPlatformRendererWin32D3D11.h" />
+    <ClInclude Include="Platform\Win32\GCPlatformWin32.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

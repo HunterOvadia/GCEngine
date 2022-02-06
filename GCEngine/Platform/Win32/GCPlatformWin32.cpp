@@ -5,7 +5,7 @@
 #include "GCPlatformFileIOWin32.h"
 
 bool IGCPlatform::_IsRunning = false;
-GCPlatformWin32::GCPlatformWin32(HINSTANCE InInstance) 
+GCPlatformWin32::GCPlatformWin32(const HINSTANCE InInstance) 
 	: Instance(InInstance)
 	, WindowHandle(nullptr)
 {
@@ -33,17 +33,16 @@ IGCPlatformAudio* GCPlatformWin32::AssignAudio()
 
 bool GCPlatformWin32::InternalCreateWindow(const char* ProgramName, int Width, int Height)
 {
-	WNDCLASSA WindowClass = { 0 };
-
+	WNDCLASSA WindowClass = {};
 	WindowClass.lpfnWndProc = Win32WindowCallback;
 	WindowClass.hInstance = Instance;
-	WindowClass.hCursor = LoadCursor(0, IDC_ARROW);
-	WindowClass.hbrBackground = (HBRUSH)(COLOR_BACKGROUND + 1);
+	WindowClass.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	WindowClass.hbrBackground = reinterpret_cast<HBRUSH>(COLOR_BACKGROUND + 1);
 	WindowClass.lpszClassName = "GCWindowClass";
 
 	if (RegisterClassA(&WindowClass))
 	{
-		DWORD WindowStyles = WS_OVERLAPPEDWINDOW;
+		constexpr DWORD WindowStyles = WS_OVERLAPPEDWINDOW;
 		RECT WindowRect = { 0 };
 		WindowRect.right = Width;
 		WindowRect.bottom = Height;
@@ -51,10 +50,10 @@ bool GCPlatformWin32::InternalCreateWindow(const char* ProgramName, int Width, i
 
 		WindowWidth = (WindowRect.right - WindowRect.left);
 		WindowHeight = (WindowRect.bottom - WindowRect.top);
-		int WindowCenterX = ((GetSystemMetrics(SM_CXSCREEN) - WindowWidth) / 2);
-		int WindowCenterY = ((GetSystemMetrics(SM_CYSCREEN) - WindowHeight) / 2);
+		const int WindowCenterX = ((GetSystemMetrics(SM_CXSCREEN) - WindowWidth) / 2);
+		const int WindowCenterY = ((GetSystemMetrics(SM_CYSCREEN) - WindowHeight) / 2);
 
-		WindowHandle = CreateWindowExA(0, WindowClass.lpszClassName, ProgramName, WindowStyles, WindowCenterX, WindowCenterY, WindowWidth, WindowHeight, NULL, NULL, Instance, NULL);
+		WindowHandle = CreateWindowExA(0, WindowClass.lpszClassName, ProgramName, WindowStyles, WindowCenterX, WindowCenterY, WindowWidth, WindowHeight, nullptr, nullptr, Instance, nullptr);
 		if (WindowHandle)
 		{
 			ShowWindow(WindowHandle, 1);
@@ -68,7 +67,7 @@ bool GCPlatformWin32::InternalCreateWindow(const char* ProgramName, int Width, i
 void GCPlatformWin32::ProcessMessages()
 {
 	MSG Message;
-	while (PeekMessage(&Message, 0, 0, 0, PM_REMOVE))
+	while (PeekMessage(&Message, nullptr, 0, 0, PM_REMOVE))
 	{
 		switch (Message.message)
 		{
@@ -84,7 +83,7 @@ void GCPlatformWin32::ProcessMessages()
 
 
 
-LRESULT GCPlatformWin32::Win32WindowCallback(HWND Window, UINT Message, WPARAM WParam, LPARAM LParam)
+LRESULT GCPlatformWin32::Win32WindowCallback(const HWND Window, const UINT Message, const WPARAM WParam, const LPARAM LParam)
 {
 	LRESULT Result = 0;
 	switch (Message)

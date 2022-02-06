@@ -3,20 +3,20 @@
 
 IOFileResult GCPlatformFileIOWin32::ReadFile(const char* Filename)
 {
-	IOFileResult Result = { 0 };
-	HANDLE FileHandle = CreateFileA(Filename, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+	IOFileResult Result = {};
+	const HANDLE FileHandle = CreateFileA(Filename, GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
 	if (FileHandle != INVALID_HANDLE_VALUE)
 	{
 		LARGE_INTEGER FileSize;
 		if (GetFileSizeEx(FileHandle, &FileSize))
 		{
-			int Size = FileSize.QuadPart;
+			const int Size = FileSize.QuadPart;
 			Result.SizeBytes = Size;
-			Result.Content = VirtualAlloc(0, Size, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+			Result.Content = VirtualAlloc(nullptr, Size, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 			if (Result.Content)
 			{
 				DWORD ReadBytes;
-				if (!::ReadFile(FileHandle, Result.Content, Result.SizeBytes, &ReadBytes, 0) && (Result.SizeBytes == ReadBytes))
+				if (!::ReadFile(FileHandle, Result.Content, Result.SizeBytes, &ReadBytes, nullptr) && (Result.SizeBytes == ReadBytes))
 				{
 					VirtualFree(Result.Content, 0, MEM_RELEASE);
 					Result.Content = nullptr;
@@ -28,14 +28,14 @@ IOFileResult GCPlatformFileIOWin32::ReadFile(const char* Filename)
 	return Result;
 }
 
-bool GCPlatformFileIOWin32::WriteFile(const char* Filename, int Size, void* Content)
+bool GCPlatformFileIOWin32::WriteFile(const char* Filename, const int Size, void* Content)
 {
 	bool Result = false;
-	HANDLE FileHandle = CreateFileA(Filename, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, 0, 0);
+	const HANDLE FileHandle = CreateFileA(Filename, GENERIC_WRITE, 0, nullptr, CREATE_ALWAYS, 0, nullptr);
 	if (FileHandle != INVALID_HANDLE_VALUE)
 	{
 		DWORD WriteBytes;
-		if (::WriteFile(FileHandle, Content, Size, &WriteBytes, 0))
+		if (::WriteFile(FileHandle, Content, Size, &WriteBytes, nullptr))
 		{
 			Result = (WriteBytes == Size);
 		}

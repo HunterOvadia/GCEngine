@@ -1,12 +1,12 @@
 #pragma once
-#include "GCPlatformInput.h"
+#include "../GCPlatformInput.h"
 #include "GCPlatformWin32.h"
 
-class GCPlatformInputWin32 : public IGCPlatformInput
+class GCPlatformInputWin32 final : public IGCPlatformInput
 {
 public:
-	GCPlatformInputWin32(HWND InWindowHandle);
-	virtual void ProcessMouseInput() override;
+	explicit GCPlatformInputWin32(HWND InWindowHandle);
+	void ProcessMouseInput() override;
 
 private:
 	HWND WindowHandle;
