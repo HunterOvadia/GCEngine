@@ -6,8 +6,6 @@
 #include "GCPlatformFileIO.h"
 #include "../GCEngine.h"
 
-#define ARRAY_SIZE(Array) ((sizeof(Array)/sizeof(Array[0])))
-
 class IGCApp;
 
 class GCENGINE_API IGCPlatform

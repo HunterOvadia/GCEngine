@@ -1,6 +1,6 @@
 #pragma once
 #include "App/IGCApp.h"
-#include "Containers/Array.h"
+#include "Containers/String.h"
 
 class Game : public IGCApp
 {
@@ -9,11 +9,10 @@ public:
 
 	virtual bool Initialize(IGCPlatform* Platform) override
 	{
-		Array<int> Test;
-		for (int i = 0; i < 10; ++i)
-		{
-			Test.Add(i);
-		}
+		String Test = "Hello!";
+		String Test2 = "Wazzup!";
+
+		Test.Append(Test2);
 
 		return true;
 	}

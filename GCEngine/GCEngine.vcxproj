@@ -143,6 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App\IGCApp.cpp" />
+    <ClCompile Include="Containers\String.cpp" />
     <ClCompile Include="GCEngine.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Platform\GCPlatform.cpp" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="App\IGCApp.h" />
     <ClInclude Include="Containers\Array.h" />
+    <ClInclude Include="Containers\String.h" />
     <ClInclude Include="GCEngine.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="Memory\GCMemory.h" />

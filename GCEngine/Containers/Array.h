@@ -1,5 +1,6 @@
 #pragma once
 #include "../Memory/GCMemory.h"
+#include "../GCEngine.h"
 
 template<typename TType>
 class Array
@@ -77,11 +78,7 @@ inline int Array<TType>::Add(const TType& ToAdd)
 template<typename TType>
 inline void Array<TType>::Remove(const int Index)
 {
-	if (Index > Count - 1)
-	{
-		// TODO(HO): Assert
-		return;
-	}
+	GC_ASSERT(Index <= (Count - 1));
 
 	if (Index != (Count - 1))
 	{
@@ -142,11 +139,7 @@ inline TType* Array<TType>::GetData()
 template<typename TType>
 inline TType& Array<TType>::operator[](const int Index)
 {
-	if (Index > (Count - 1))
-	{
-		// TODO(HO): Assert
-	}
-
+	GC_ASSERT(Index <= (Count - 1));
 	return InternalStorage[Index];
 }
 

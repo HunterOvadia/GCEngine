@@ -18,6 +18,15 @@ public:
 #endif
 	}
 
+	static void* ReAllocate(void* Memory, size_t Size)
+	{
+#if _WIN32
+		return HeapReAlloc(0, 0, Memory, Size);
+#else
+		return realloc(Memory, Size);
+#endif
+	}
+
 	static void Free(void* Memory)
 	{
 #if _WIN32
