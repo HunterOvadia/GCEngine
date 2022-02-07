@@ -1,6 +1,7 @@
 #pragma once
+#include "../GCEngine.h"
 
-class Vector2
+class GCENGINE_API Vector2
 {
 public:
 	Vector2();

@@ -154,8 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App\IGCApp.h" />
+    <ClInclude Include="Containers\Array.h" />
     <ClInclude Include="GCEngine.h" />
     <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Memory\GCMemory.h" />
     <ClInclude Include="Platform\GCPlatform.h" />
     <ClInclude Include="Platform\GCPlatformAudio.h" />
     <ClInclude Include="Platform\GCPlatformFileIO.h" />

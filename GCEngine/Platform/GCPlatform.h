@@ -53,4 +53,3 @@ protected:
 	int WindowHeight;
 	static bool _IsRunning;
 };
-
